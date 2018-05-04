@@ -12,18 +12,39 @@ import util.Util;
  * from index 1 to index N-2. And so on. The execution continues until the array
  * is completely ordered.
  */
-public class SimultaneousBubblesort<T extends Comparable<T>> extends AbstractSorting<T> {
-	public void sort(T[] array, int leftIndex, int rightIndex) {
-		for (int i = leftIndex; i < rightIndex; i++) {
 
-			for (int j = leftIndex; j < rightIndex - i; j++) {
-				if (array[j].compareTo(array[j + 1]) > 0)
-					Util.swap(array, j, j + 1);
-			}
-			for (int k = rightIndex; k < leftIndex + i; k++) {
-				if (array[k].compareTo(array[k + 1]) < 0)
-					Util.swap(array, k, k + 1);
-			}
-		}
-	}
+public class SimultaneousBubblesort<T extends Comparable<T>> extends AbstractSorting<T> {
+
+   public void sort(T[] array, int leftIndex, int rightIndex) {
+      if (verificaArray(array, leftIndex, rightIndex)) {
+         int left = leftIndex;
+         int right = rightIndex;
+
+         for (int pos = leftIndex; pos < rightIndex; pos++) {
+            while (left < rightIndex && right > leftIndex) {
+               if (array[left].compareTo(array[left + 1]) > 0) {
+                  Util.swap(array, left, left + 1);
+               }
+               if (array[right].compareTo(array[right - 1]) < 0) {
+                  Util.swap(array, right, right - 1);
+               }
+               left++;
+               right--;
+            }
+
+            left = leftIndex + pos;
+            right = rightIndex - pos;
+         }
+      }
+   }
+
+   private boolean verificaArray(T[] array, int leftIndex, int rightIndex) {
+      boolean ehValido;
+      if (array != null && leftIndex >= 0 && rightIndex < array.length && array.length != 0) {
+         ehValido = true;
+      } else {
+         ehValido = false;
+      }
+      return ehValido;
+   }
 }

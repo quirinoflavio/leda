@@ -12,18 +12,30 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		for (int i = leftIndex; i <= rightIndex; i++) {
-			int menor = i;
+		if (verificaArray(array, leftIndex, rightIndex)) {
+			for (int i = leftIndex; i <= rightIndex; i++) {
+				int menor = i;
 
-			for (int j = i + 1; j <= rightIndex; j++) {
-				if (array[j].compareTo(array[menor]) < 0) {
-					menor = j;
+				for (int j = i + 1; j <= rightIndex; j++) {
+					if (array[j].compareTo(array[menor]) < 0) {
+						menor = j;
+					}
+				}
+
+				if (array[i].compareTo(array[menor]) != 0) {
+					Util.swap(array, i, menor);
 				}
 			}
-
-			if (array[i].compareTo(array[menor]) != 0) {
-				Util.swap(array, i, menor);
-			}
 		}
+	}
+
+	private boolean verificaArray(T[] array, int leftIndex, int rightIndex) {
+		boolean ehValido;
+		if (array != null && leftIndex >= 0 && rightIndex < array.length && array.length != 0) {
+			ehValido = true;
+		} else {
+			ehValido = false;
+		}
+		return ehValido;
 	}
 }
