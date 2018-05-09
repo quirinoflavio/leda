@@ -12,8 +12,36 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int k = 0;
+		for (int m = leftIndex; m < rightIndex; m++) {
+			if (array[m] > k) {
+				k = array[m];
+			}
+		}
+		
+		int[] vetorTemp = new int[k];
+		
+		for (int i = 0; i < k; i++) {
+			vetorTemp[i] = 0;
+		}
+		
+		for(int j = leftIndex; j < rightIndex; j++) {
+			vetorTemp[array[j]]+=1;
+		}
+		
+		for(int c = leftIndex; c < k; c++) {
+			vetorTemp[c] = vetorTemp[c] + vetorTemp[c-1];
+		}
+		
+		int[] vetorAux = new int[array.length];
+		for(int v = rightIndex; v > leftIndex; v--) {
+			vetorAux[vetorTemp[array[v]]] = array[v];
+			vetorTemp[array[v]]--;
+		}
+		
+		for(int r=leftIndex; r<rightIndex; r++) {
+			array[r] = vetorAux[r];
+		}
 	}
 
 }
