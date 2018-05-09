@@ -64,8 +64,7 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	private boolean verificaArray(T[] array, int leftIndex, int rightIndex) {
 		boolean ehValido = false;
 
-		if (array != null && leftIndex < rightIndex && leftIndex >= 0 && rightIndex < array.length
-				&& array.length != 0) {
+		if (array != null && leftIndex < rightIndex && leftIndex >= 0 && rightIndex < array.length) {
 			ehValido = true;
 		}
 

@@ -25,37 +25,57 @@ public class ThreeWayQuickSort<T extends Comparable<T>> extends AbstractSorting<
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 		if (verificaArray(array, leftIndex, rightIndex)) {
-			int pivotIndex = leftIndex;
-			T pivot = array[pivotIndex];
-			int i = leftIndex + 1;
-			int lower = leftIndex;
-			int greater = rightIndex;
 
-			while (i <= greater) {
-				if (array[i].compareTo(pivot) < 0) {
-					Util.swap(array, lower, i);
-					lower++;
-					i++;
-				} else if (array[i].compareTo(pivot) > 0) {
-					Util.swap(array, greater, i);
-					greater--;
-				}
-
-				else {
-					i++;
-				}
-			}
-
-			sort(array, leftIndex, lower - 1);
+			
+			int greater = partition(array, leftIndex, rightIndex);
+			int lower = partitionLower(array, leftIndex, greater);
+			
+			sort(array, leftIndex, lower);
 			sort(array, greater + 1, rightIndex);
 		}
+	}
+
+	private int partition(T[] array, int leftIndex, int rightIndex) {
+		int i = leftIndex + 1;
+		int j = rightIndex;
+		T pivot = array[leftIndex];
+
+		while (i <= j) {
+			if (array[i].compareTo(pivot) <= 0) {
+				i++;
+			} else if (array[j].compareTo(pivot) > 0) {
+				j--;
+			} else {
+				Util.swap(array, i, j);
+			}
+		}
+
+		Util.swap(array, leftIndex, j);
+		return j;
+	}
+	
+	private int partitionLower(T[] array, int leftIndex, int rightIndex) {
+		int i = leftIndex;
+		int j = rightIndex -1;
+		T pivot = array[rightIndex];
+		
+		while(i <= j) {
+			if(array[i].compareTo(pivot) < 0) {
+				i++;
+			}else if (array[j].compareTo(pivot) == 0) {
+				j--;
+			}else {
+				Util.swap(array, i, j);
+				
+			}
+		}
+		return j;
 	}
 
 	private boolean verificaArray(T[] array, int leftIndex, int rightIndex) {
 		boolean ehValido = false;
 
-		if (array != null && leftIndex < rightIndex && leftIndex >= 0 && rightIndex < array.length
-				&& array.length != 0) {
+		if (array != null && leftIndex < rightIndex && leftIndex >= 0 && rightIndex < array.length) {
 			ehValido = true;
 		}
 
