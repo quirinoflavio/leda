@@ -10,38 +10,56 @@ import sorting.AbstractSorting;
  */
 public class CountingSort extends AbstractSorting<Integer> {
 
-	@Override
-	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		int k = 0;
-		for (int m = leftIndex; m < rightIndex; m++) {
-			if (array[m] > k) {
-				k = array[m];
-			}
-		}
-		
-		int[] vetorTemp = new int[k];
-		
-		for (int i = 0; i < k; i++) {
-			vetorTemp[i] = 0;
-		}
-		
-		for(int j = leftIndex; j < rightIndex; j++) {
-			vetorTemp[array[j]]+=1;
-		}
-		
-		for(int c = leftIndex; c < k; c++) {
-			vetorTemp[c] = vetorTemp[c] + vetorTemp[c-1];
-		}
-		
-		int[] vetorAux = new int[array.length];
-		for(int v = rightIndex; v > leftIndex; v--) {
-			vetorAux[vetorTemp[array[v]]] = array[v];
-			vetorTemp[array[v]]--;
-		}
-		
-		for(int r=leftIndex; r<rightIndex; r++) {
-			array[r] = vetorAux[r];
-		}
-	}
+   @Override
+   public void sort(Integer[] array, int leftIndex, int rightIndex) {
+      if (verificaArray(array, leftIndex, rightIndex)) {
+         int max = maxValue(array, leftIndex, rightIndex);
+         int[] vetorTemp = new int[max + 1];
+         int[] vetorAux = new int[array.length];
+
+         for (int i = 0; i <= max; i++) {
+            vetorTemp[i] = 0;
+         }
+
+         for (int j = leftIndex; j <= rightIndex; j++) {
+            vetorTemp[array[j]]++;
+         }
+
+         for (int i = 0; i < max; i++) {
+            vetorTemp[i + 1] = vetorTemp[i + 1] + vetorTemp[i];
+         }
+
+         for (int j = rightIndex; j >= leftIndex; j--) {
+            vetorTemp[array[j]]--;
+            vetorAux[vetorTemp[array[j]]] = array[j];
+         }
+
+         for (int i = leftIndex; i <= rightIndex; i++) {
+            array[i] = vetorAux[i];
+
+         }
+      }
+   }
+
+   private int maxValue(Integer[] array, int leftIndex, int rightIndex) {
+      int maxValue = 0;
+      for (int m = leftIndex; m <= rightIndex; m++) {
+         if (array[m] > maxValue) {
+            maxValue = array[m];
+         }
+      }
+
+      return maxValue;
+   }
+
+   private boolean verificaArray(Integer[] array, int leftIndex, int rightIndex) {
+      boolean ehValido = false;
+
+      if (array != null && leftIndex < rightIndex && leftIndex >= 0 && rightIndex < array.length) {
+         ehValido = true;
+      }
+
+      return ehValido;
+   }
 
 }
