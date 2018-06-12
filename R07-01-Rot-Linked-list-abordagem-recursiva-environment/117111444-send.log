@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-06-04T16:05:47.517-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 150.165.42.198</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-06-07T12:14:43.221-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 150.165.74.133</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-06-08T01:56:27.992-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 192.168.31.1</message>
+</record>
