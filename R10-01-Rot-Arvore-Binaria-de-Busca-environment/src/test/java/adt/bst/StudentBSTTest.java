@@ -88,7 +88,7 @@ public class StudentBSTTest {
 
 		assertEquals(new Integer(-40), tree.predecessor(-34).getData());
 		assertEquals(new Integer(0), tree.sucessor(-34).getData());
-		
+
 		assertEquals(new Integer(-34), tree.predecessor(0).getData());
 		assertEquals(new Integer(2), tree.sucessor(0).getData());
 
@@ -99,30 +99,43 @@ public class StudentBSTTest {
 	@Test
 	public void testSize() {
 		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
-		
-		//System.out.println(Arrays.toString(tree.order()));
-		//System.out.println(Arrays.toString(tree.postOrder()));
-		//System.out.println(Arrays.toString(tree.preOrder()));
-		
+
+		// System.out.println(Arrays.toString(tree.order()));
+		// System.out.println(Arrays.toString(tree.postOrder()));
+		// System.out.println(Arrays.toString(tree.preOrder()));
+
 		int size = 12;
 		assertEquals(size, tree.size());
-
 		while (!tree.isEmpty()) {
-			System.out.print(Arrays.toString(tree.order()));
-			System.out.println(" " + tree.getRoot());
+			// System.out.print(Arrays.toString(tree.order()));
+			// System.out.println(" " + tree.getRoot());
 			tree.remove(tree.getRoot().getData());
-			
-			//assertEquals(--size, tree.size());
+			assertEquals(--size, tree.size());
+
+			// System.out.print(Arrays.toString(tree.order()));
+			// System.out.println(" " + tree.getRoot());
+			tree.remove(tree.minimum().getData());
+			assertEquals(--size, tree.size());
+
+			// System.out.print(Arrays.toString(tree.order()));
+			// System.out.println(" " + tree.getRoot());
+			tree.remove(tree.maximum().getData());
+			assertEquals(--size, tree.size());
 		}
+		// System.out.print(Arrays.toString(tree.order()));
+		// System.out.println(" " + tree.getRoot());
+
+		// BSTNode<Integer> n = tree.search(5);
+		// tree.search(232).setData(5);
+		// System.out.println(tree.sucessor(n));
 	}
 
 	@Test
 	public void testHeight() {
 		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
 
-		Integer[] preOrder = new Integer[] { 6, -34, -40, 5, 2, 0, 23, 9, 12,
-				76, 67, 232 };
-		//System.out.println(Arrays.toString(tree.preOrder()));
+		Integer[] preOrder = new Integer[] { 6, -34, -40, 5, 2, 0, 23, 9, 12, 76, 67, 232 };
+		// System.out.println(Arrays.toString(tree.preOrder()));
 		assertArrayEquals(preOrder, tree.preOrder());
 		assertEquals(4, tree.height());
 
@@ -131,6 +144,11 @@ public class StudentBSTTest {
 
 		tree.remove(2);
 		assertEquals(3, tree.height());
+		while(!tree.isEmpty()) {
+			tree.remove(tree.getRoot().getData());
+		}
+		
+		assertEquals(-1, tree.height());
 	}
 
 	@Test
@@ -158,8 +176,12 @@ public class StudentBSTTest {
 
 		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
 
-		assertEquals(new Integer(-40), tree.search(-40).getData());
-		assertEquals(new Integer(-34), tree.search(-34).getData());
-		assertEquals(NIL, tree.search(2534));
+		Integer a[] = { -40, -34, 0, 2, 5, 6, 9, 12, 23, 67, 76, 232 };
+		for (int i = 0; i < a.length; i++) {
+			assertEquals(new Integer(a[i]), tree.search(a[i]).getData());
+		}
+		for (int i = 500; i < 1000; i += 3) {
+			assertEquals(NIL, tree.search(i));
+		}
 	}
 }
