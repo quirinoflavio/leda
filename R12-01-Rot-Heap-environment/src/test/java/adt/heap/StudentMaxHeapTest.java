@@ -21,7 +21,7 @@ public class StudentMaxHeapTest {
 		// uma max heap aqui. Use instanciacao anonima da interface
 		// Comparator!!!!
 		Comparator<Integer> comparator = null;
-		heap = new HeapImpl<Integer>(comparator);
+		heap = new HeapImpl<Integer>((o1, o2) -> o1.compareTo(o2));
 	}
 
 	@Test
@@ -66,15 +66,21 @@ public class StudentMaxHeapTest {
 		heap.insert(53);
 		heap.insert(30);
 
+		//System.out.println(Arrays.toString(heap.toArray()));
+		
 		assertEquals(new Integer(79), heap.extractRootElement());
 		assertEquals(new Integer(53), heap.extractRootElement());
 		assertEquals(new Integer(45), heap.extractRootElement());
 		assertEquals(new Integer(40), heap.extractRootElement());
 		assertEquals(new Integer(38), heap.extractRootElement());
 
+		//System.out.println(Arrays.toString(heap.toArray()));
+		
 		assertEquals(5, heap.size());
 		assertFalse(heap.isEmpty());
 
+		
+		
 		verifyHeap(new Integer[] { 22, 17, 15, 26, 30 });
 	}
 
@@ -82,7 +88,11 @@ public class StudentMaxHeapTest {
 	public void testSort() {
 		assertArrayEquals(new Integer[] { 5, 6, 12, 20, 34, 43, 49, 92 },
 				heap.heapsort(new Integer[] { 34, 92, 5, 12, 49, 20, 43, 6 }));
-
+		
+		assertArrayEquals(new Integer[] { 1, 8, 8, 8, 8, 8, 8, 8, 8, 8 },
+				heap.heapsort(new Integer[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 1 }));
+		
+		//System.out.println(Arrays.toString(heap.heapsort(new Integer[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 1 })));
 		assertEquals(0, heap.size());
 		assertTrue(heap.isEmpty());
 
@@ -108,6 +118,7 @@ public class StudentMaxHeapTest {
 			if (2 * i + 2 < original.length && original[i].compareTo((Integer) original[2 * i + 2]) < 0)
 				isHeap = false;
 		}
+		
 
 		assertTrue(isHeap);
 	}

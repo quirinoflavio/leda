@@ -52,7 +52,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return node;
 	}
 
-	private BSTNode<T> search(BSTNode<T> node, T element) {
+	protected BSTNode<T> search(BSTNode<T> node, T element) {
 		BSTNode<T> result;
 
 		if (node.isEmpty()) {
@@ -76,7 +76,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		insert(root, element);
 	}
 
-	private void insert(BSTNode<T> root, T element) {
+	protected void insert(BSTNode<T> root, T element) {
 		if (root.isEmpty()) {
 			root.setData(element);
 			root.setLeft((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
@@ -142,7 +142,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return sucessor(node);
 	}
 
-	private BSTNode<T> sucessor(BSTNode<T> node) {
+	protected BSTNode<T> sucessor(BSTNode<T> node) {
 		BSTNode<T> nodeSucessor;
 		
 		if (node.isEmpty()) {
@@ -165,11 +165,11 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return nodeSucessor;
 	}
 
-	private boolean isRightChild(BSTNode<T> child, BSTNode<T> parent) {
+	protected boolean isRightChild(BSTNode<T> child, BSTNode<T> parent) {
 		return !parent.getRight().isEmpty() && parent.getRight().getData().compareTo(child.getData()) == 0;
 	}
 
-	private boolean isLeftChild(BSTNode<T> child, BSTNode<T> parent) {
+	protected boolean isLeftChild(BSTNode<T> child, BSTNode<T> parent) {
 		return !parent.getLeft().isEmpty() && parent.getLeft().getData().compareTo(child.getData()) == 0;
 	}
 
@@ -179,7 +179,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return predecessor(node);
 	}
 
-	private BSTNode<T> predecessor(BSTNode<T> node) {
+	protected BSTNode<T> predecessor(BSTNode<T> node) {
 		BSTNode<T> nodePredecessor;
 		
 		if (node.isEmpty()) {
@@ -210,7 +210,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		}
 	}
 
-	private void remove(BSTNode<T> node) {
+	protected void remove(BSTNode<T> node) {
 		if (node.isLeaf()) {
 			node.setData(null);
 			node.setLeft(null);
@@ -280,7 +280,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	/**
 	 * Adiciona o data na primeira posicao nao nula do array
 	 */
-	private void addToArray(T[] array, T data) {
+	protected void addToArray(T[] array, T data) {
 		int i = 0;
 		
 		while (i < array.length) {

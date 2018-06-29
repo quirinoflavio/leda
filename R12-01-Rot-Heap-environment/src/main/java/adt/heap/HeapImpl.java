@@ -69,7 +69,8 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	public T[] toArray() {
 		ArrayList<T> resp = new ArrayList<T>();
 		for (T elem : this.heap) {
-			resp.add(elem);
+			if(elem != null)
+				resp.add(elem);
 		}
 		return (T[]) resp.toArray(new Comparable[0]);
 	}
@@ -82,16 +83,15 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	 */
 	private void heapify(int position) {
 		if (isValidIndex(position)) {
-			T node = heap[position];
 			int left = left(position);
 			int right = right(position);
 			int highest = position;
 
-			if (isValidIndex(left) && comparator.compare(node, heap[left]) < 0) {
+			if (isValidIndex(left) && comparator.compare(heap[highest], heap[left]) < 0) {
 				highest = left(position);
 			}
 
-			if (isValidIndex(right) && comparator.compare(node, heap[right]) < 0) {
+			if (isValidIndex(right) && comparator.compare(heap[highest], heap[right]) < 0) {
 				highest = right(position);
 			}
 
@@ -103,7 +103,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	}
 
 	private boolean isValidIndex(int index) {
-		return index < size();
+		return index >= 0  && index < size();
 	}
 
 	@Override
@@ -116,25 +116,31 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		if (element != null) {
 			heap[size()] = element;
 			index++;
+			update();
 		}
-
+	}
+	
+	private void update() {
 		int parent = parent(size() - 1);
 		int newElementIndex = size() - 1;
+
 		while (parent >= 0 && comparator.compare(heap[newElementIndex], heap[parent]) > 0) {
 			Util.swap(heap, parent, newElementIndex);
-			parent = parent(parent);
 			newElementIndex = parent;
+			parent = parent(parent);
 		}
+
 	}
 
 	@Override
 	public void buildHeap(T[] array) {
-		cleanHeap();
+		if (array != null) {
+			cleanHeap();
 
-		for (T element : array) {
-			insert(element);
+			for (T element : array) {
+				insert(element);
+			}
 		}
-
 	}
 
 	private void cleanHeap() {
@@ -143,19 +149,28 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public T extractRootElement() {
-		Util.swap(heap, index, 0);
-		T removedElement = heap[index];
-		index--;
-		heapify(0);
+		T removedElement = null;
+		
+		if (!isEmpty()) {
+			removedElement = heap[0];
+
+			Util.swap(heap, index, 0);
+			heap[index] = null;
+			index--;
+			heapify(0);
+		}
+		
 		return removedElement;
 	}
 
 	@Override
 	public T rootElement() {
 		T element;
+		
 		if (isEmpty()) {
 			element = null;
-		} else {
+		} 
+		else {
 			element = heap[0];
 		}
 
@@ -164,18 +179,61 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public T[] heapsort(T[] array) {
-		cleanHeap();
-		buildHeap(array);
-
-		T[] sortedArray = (T[]) new Comparable[size()];
-
+		T[] sortedArray = null;
+		
+		if (array != null) {
+			buildHeap(array);
+			sortedArray = (T[]) new Comparable[size()];
+			
+			if (isMaxHeap()) {
+				sortedArray = heapsortMaxHeap(sortedArray);
+			} 
+			else {
+				sortedArray = heapsortMinHeap(sortedArray);
+			}
+		}
+		
+		return sortedArray;
+	}
+	
+	private T[] heapsortMinHeap(T[] sortedArray) {
 		int i = 0;
+		
 		while (!isEmpty()) {
 			sortedArray[i] = extractRootElement();
 			i++;
 		}
+		
 		return sortedArray;
 	}
+
+	private T[] heapsortMaxHeap(T[] sortedArray) {
+
+		int i = index;
+		while (!isEmpty()) {
+			sortedArray[i] = extractRootElement();
+			i--;
+		}
+		
+		return sortedArray;
+	}
+	
+	private boolean isMaxHeap() {
+		T max = rootElement();
+		boolean isMaxHeap = true;
+		int index = 0;
+		
+		while(index < size()) { //percorrendo a heap da esquerda para a direita
+			if(getHeap()[index].compareTo(max) > 0) {
+				isMaxHeap = false;
+				break;
+			}
+			index++;
+		}
+		
+		return isMaxHeap;
+	}
+	
 
 	@Override
 	public int size() {

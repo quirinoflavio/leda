@@ -21,7 +21,7 @@ public class StudentMinHeapTest {
 		// uma min heap aqui. Use instanciacao anonima da interface
 		// Comparator!!!!
 		Comparator<Integer> comparator = null;
-		heap = new HeapImpl<Integer>(comparator);
+		heap = new HeapImpl<Integer>((o1, o2) -> o2.compareTo(o1));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class StudentMinHeapTest {
 		assertEquals(new Integer(22), heap.extractRootElement());
 		assertEquals(new Integer(26), heap.extractRootElement());
 		assertEquals(new Integer(30), heap.extractRootElement());
-
+		
 		assertEquals(5, heap.size());
 		assertFalse(heap.isEmpty());
 
@@ -83,6 +83,10 @@ public class StudentMinHeapTest {
 		assertArrayEquals(new Integer[] { 5, 6, 12, 20, 34, 43, 49, 92 },
 				heap.heapsort(new Integer[] { 34, 92, 5, 12, 49, 20, 43, 6 }));
 
+		assertArrayEquals(new Integer[] {-1, 1, 2},
+				heap.heapsort(new Integer[] {-1, 2, 1}));
+		
+		//System.out.println(Arrays.toString(heap.heapsort(new Integer[] { 8, 8, 8, 8, 8, 8, 8, 8, 8, 1 })));
 		assertEquals(0, heap.size());
 		assertTrue(heap.isEmpty());
 
