@@ -64,7 +64,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	public boolean isEmpty() {
 		return (index == -1);
 	}
-
+	
 	@Override
 	public T[] toArray() {
 		ArrayList<T> resp = new ArrayList<T>();
@@ -102,10 +102,6 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		}
 	}
 
-	private boolean isValidIndex(int index) {
-		return index >= 0  && index < size();
-	}
-
 	@Override
 	public void insert(T element) {
 		// ESSE CODIGO E PARA A HEAP CRESCER SE FOR PRECISO. NAO MODIFIQUE
@@ -138,7 +134,9 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			cleanHeap();
 
 			for (T element : array) {
-				insert(element);
+				if(element != null) {
+					insert(element);
+				}
 			}
 		}
 	}
@@ -153,7 +151,6 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		
 		if (!isEmpty()) {
 			removedElement = heap[0];
-
 			Util.swap(heap, index, 0);
 			heap[index] = null;
 			index--;
@@ -208,8 +205,8 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	}
 
 	private T[] heapsortMaxHeap(T[] sortedArray) {
-
 		int i = index;
+		
 		while (!isEmpty()) {
 			sortedArray[i] = extractRootElement();
 			i--;
@@ -250,6 +247,10 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	public T[] getHeap() {
 		return heap;
+	}
+	
+	private boolean isValidIndex(int index) {
+		return index >= 0  && index < size();
 	}
 
 }

@@ -17,3 +17,43 @@
   <level>FINE</level>
   <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 150.165.42.154</message>
 </record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-07-05T23:59:31.082-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 192.168.31.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-07-06T00:58:49.496-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 192.168.31.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-07-06T22:41:44.241-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 192.168.31.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-07-06T22:45:30.525-0300</date>
+  <logger>FLAVIO ROBERTO PIRES QUIRINO FARIAS</logger>
+  <level>FINE</level>
+  <message>File 117111444-FLAVIO ROBERTO PIRES QUIRINO FARIAS.zip was received. It was sent by FLAVIO ROBERTO PIRES QUIRINO FARIAS from IP 192.168.31.1</message>
+</record>
