@@ -73,26 +73,27 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public void insert(T element) {
-		insert(root, element);
+		if(element != null) {
+			insert(root, element);
+		}
 	}
 
 	protected void insert(BSTNode<T> root, T element) {
-		if (element != null) {
-			if (root.isEmpty()) {
-				root.setData(element);
-				root.setLeft((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
-				root.setRight((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
+		if (root.isEmpty()) {
+			root.setData(element);
+			root.setLeft((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
+			root.setRight((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
+		} 
+		else {
+			if (root.getData().compareTo(element) > 0) {
+				insert((BSTNode<T>) root.getLeft(), element);
 			} 
 			else {
-				if (root.getData().compareTo(element) > 0) {
-					insert((BSTNode<T>) root.getLeft(), element);
-				} 
-				else if (root.getData().compareTo(element) < 0) {
-					insert((BSTNode<T>) root.getRight(), element);
-				}
+				insert((BSTNode<T>) root.getRight(), element);
 			}
 		}
 	}
+	
 		
 
 	@Override

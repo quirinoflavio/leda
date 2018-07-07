@@ -19,21 +19,19 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 
 	@Override
 	protected void insert(BSTNode<T> root, T element) {
-		if (element != null) {
-			if (root.isEmpty()) {
-				root.setData(element);
-				root.setLeft((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
-				root.setRight((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
+		if (root.isEmpty()) {
+			root.setData(element);
+			root.setLeft((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
+			root.setRight((BSTNode<T>) new BSTNode.Builder<T>().parent(root).build());
+		} 
+		else {
+			if (root.getData().compareTo(element) > 0) {
+				insert((BSTNode<T>) root.getLeft(), element);
 			} 
 			else {
-				if (root.getData().compareTo(element) > 0) {
-					insert((BSTNode<T>) root.getLeft(), element);
-				} 
-				else if (root.getData().compareTo(element) < 0) {
-					insert((BSTNode<T>) root.getRight(), element);
-				}
-				rebalance(root);
+				insert((BSTNode<T>) root.getRight(), element);
 			}
+			rebalance(root);
 		}
 	}
 
@@ -91,7 +89,6 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 				Util.rightRotation((BSTNode<T>) node.getRight());
 				Util.leftRotation(node);
 			}
-
 		}
 	}
 
