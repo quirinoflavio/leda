@@ -36,6 +36,7 @@ public class Util {
 		
 		return node;
 	}
+	
 
 	/**
 	 * A rotacao a direita em node deve subir e retornar seu filho a esquerda

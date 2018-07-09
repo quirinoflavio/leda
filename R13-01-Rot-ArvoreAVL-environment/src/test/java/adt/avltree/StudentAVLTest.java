@@ -151,4 +151,15 @@ public class StudentAVLTest {
 		assertArrayEquals(new Integer[] {}, avl.postOrder());
 		
 	}
+	
+	@Test
+	public void dsdf() {
+		avl.insert(55);
+		avl.insert(9);
+		avl.insert(91);
+		avl.insert(12);
+		avl.insert(13);
+		
+		System.out.println(Arrays.toString(avl.preOrder()));
+	}
 }
