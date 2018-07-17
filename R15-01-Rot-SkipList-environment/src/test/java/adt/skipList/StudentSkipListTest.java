@@ -104,17 +104,32 @@ public class StudentSkipListTest {
 
 	@Test
 	public void testRemove() {
+		assertEquals(0,skip.height());
 		skip.insert(10, "A", 1);
+		assertEquals(1, skip.height());
 		skip.insert(20, "B", 2);
+		assertEquals(2, skip.height());
 		skip.insert(0, "C", 2);
+		assertEquals(2, skip.height());
 		skip.insert(15, "D", 3);
+		assertEquals(3, skip.height());
 		skip.insert(5, "E", 1);
+		assertEquals(3, skip.height());
 
 		skip.insert(-10, "F", 1);
+		assertEquals(3, skip.height());
 		skip.insert(30, "G", 3);
+		assertEquals(3, skip.height());
 		skip.insert(9, "H", 2);
+		assertEquals(3, skip.height());
 		skip.insert(17, "I", 2);
+		assertEquals(3, skip.height());
 		skip.insert(-2, "J", 1);
+		assertEquals(3, skip.height());
+		skip.insert(55, "M", 4);
+		assertEquals(4, skip.height());
+		skip.remove(55);
+		assertEquals(3, skip.height());
 
 		assertEquals(10, skip.size());
 
@@ -127,6 +142,7 @@ public class StudentSkipListTest {
 		assertEquals(5, skip.size());
 
 		array = skip.toArray();
+		System.out.println(Arrays.toString(array));
 		assertEquals("[<ROOT,4,4>, <-10,1>, <-2,1>, <9,2>, <17,2>, <30,3>, <NIL,4>]", Arrays.toString(array));
 		assertEquals(-10, array[0].getForward(0).getKey());
 		assertEquals(9, array[0].getForward(1).getKey());
@@ -152,5 +168,9 @@ public class StudentSkipListTest {
 		array = skip.toArray();
 		assertEquals("[<ROOT,4,4>, <NIL,4>]", Arrays.toString(array));
 		assertEquals(Integer.MAX_VALUE, array[0].getForward(0).getKey());
+	}
+	
+	public void dalmasca_Westersand() {
+		
 	}
 }

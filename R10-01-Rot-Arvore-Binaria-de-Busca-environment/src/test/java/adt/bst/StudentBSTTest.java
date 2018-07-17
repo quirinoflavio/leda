@@ -184,4 +184,51 @@ public class StudentBSTTest {
 			assertEquals(NIL, tree.search(i));
 		}
 	}
+	
+	@Test
+	public void war_haha() {
+		tree.insert(6); tree.insert(-31); tree.insert(-15); tree.insert(11); tree.insert(47);
+		tree.insert(46); tree.insert(-1); tree.insert(1); tree.insert(50); tree.insert(8);
+		//tree.insert(null);
+		
+		assertEquals(10, tree.size());
+		assertEquals(4, tree.height());
+		
+		
+		assertArrayEquals(new Integer[] {6, -31, -15, -1, 1, 11, 8, 47, 46, 50}, tree.preOrder());
+		assertArrayEquals(new Integer[] {-31, -15, -1, 1, 6, 8, 11, 46, 47, 50}, tree.order());
+		assertArrayEquals(new Integer[] {1, -1, -15, -31, 8, 46, 50, 47, 11, 6}, tree.postOrder());
+		
+		assertEquals(new Integer(-31), tree.search(-31).getData()); assertEquals(new Integer(6), tree.search(6).getData());
+		assertEquals(new Integer(8), tree.search(8).getData()); assertEquals(new Integer(-1), tree.search(-1).getData());
+		assertEquals(NIL, tree.search(5));
+		
+
+		tree.remove(6);
+				
+		assertArrayEquals(new Integer[] {8, -31, -15, -1, 1, 11, 47, 46, 50}, tree.preOrder());
+		assertArrayEquals(new Integer[] {-31, -15, -1, 1, 8, 11, 46, 47, 50}, tree.order());
+		assertArrayEquals(new Integer[] {1, -1, -15, -31, 46, 50, 47, 11, 8}, tree.postOrder());
+		
+		assertEquals(new Integer(-31), tree.search(-31).getData()); assertEquals(new Integer(1), tree.search(1).getData());
+		assertEquals(new Integer(8), tree.search(8).getData()); assertEquals(new Integer(-1), tree.search(-1).getData());
+		assertEquals(NIL, tree.search(5)); assertEquals(NIL, tree.search(6));
+		
+		
+		tree.remove(-1); tree.remove(47);
+		
+		assertArrayEquals(new Integer[] {8, -31, -15, 1, 11, 50, 46}, tree.preOrder());
+		assertArrayEquals(new Integer[] {-31, -15, 1, 8, 11, 46, 50}, tree.order());
+		assertArrayEquals(new Integer[] {1, -15, -31, 46, 50, 11, 8}, tree.postOrder());
+		
+		assertEquals(new Integer(-31), tree.search(-31).getData()); assertEquals(new Integer(1), tree.search(1).getData());
+		assertEquals(new Integer(8), tree.search(8).getData()); assertEquals(new Integer(11), tree.search(11).getData());
+		assertEquals(NIL, tree.search(5)); assertEquals(NIL, tree.search(6)); assertEquals(NIL, tree.search(-1)); 		
+		
+		assertEquals(7, tree.size());
+		assertEquals(3, tree.height());
+		
+		
+		
+	}
 }

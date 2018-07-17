@@ -31,25 +31,72 @@ public class SkipListImpl<T> implements SkipList<T> {
 	
 	@Override
 	public void insert(int key, T newValue, int height) {
-		SkipListNode<T>[] update = new SkipListNode[maxHeight];
-		
+		if(newValue != null && height > 0) {
+			SkipListNode<T>[] update = updateList(key);
+			SkipListNode<T> node = update[0].getForward(0);
+
+			if (node.getKey() == key) {
+				node.setValue(newValue);
+			} 
+			else {
+				if (height > maxHeight) {
+					throw new RuntimeException();
+				}
+				node = new SkipListNode<T>(key, height, newValue);
+				for (int i = 0; i < height; i++) {
+					node.getForward()[i] = update[i].getForward(i);
+					update[i].getForward()[i] = node;
+				}
+			}
+		}
 	}
 	
 	@Override
 	public void remove(int key) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T>[] update = updateList(key);
+		SkipListNode<T> node  = update[0].getForward(0);
+		
+		if(node.getKey() == key) {
+			int i = 0;
+			while(i < node.height() && update[i].getForward()[i].equals(node)) {
+				update[i].getForward()[i] = node.getForward(i);
+				i++;
+			}
+		}
 	}
-
+	
+	private SkipListNode<T>[] updateList(int key) {
+		SkipListNode<T>[] update = new SkipListNode[maxHeight];
+		SkipListNode<T> node = this.root;
+		
+		for(int i = maxHeight-1; i >= 0; i--) {
+			while(node.getForward(i).getKey() < key) {
+				node = node.getForward(i);
+			}
+			update[i] = node;
+		}
+		return update;
+	}
+	
+	
+	
 	@Override
 	public int height() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int height = 0;
+		
+		for(int i = 0; i < root.height(); i++) {
+			if(!root.getForward()[i].equals(NIL)) {
+				height++;
+			}
+		}
+		
+		return height;
 	}
 
 	@Override
 	public SkipListNode<T> search(int key) {
 		SkipListNode<T> node = root;
+		
 		for(int i = maxHeight-1; i >= 0; i--) {
 			while(node.getForward(i).getKey() < key) {
 				node = node.getForward(i);
@@ -68,14 +115,30 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T> node = root.getForward()[0];
+		int size = 0;
+		
+		while(node != null && !node.equals(NIL)) {
+			size++;
+			node = node.getForward()[0];
+		}
+		
+		return size;
 	}
 
 	@Override
 	public SkipListNode<T>[] toArray() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T>[] array = new SkipListNode[size()+2];
+		SkipListNode<T> node = root;
+		int i = 0;
+		
+		while(node != null) {
+			array[i] = node;
+			node = node.getForward()[0];
+			i++;
+		}
+		
+		return array;
 	}
 
 }
