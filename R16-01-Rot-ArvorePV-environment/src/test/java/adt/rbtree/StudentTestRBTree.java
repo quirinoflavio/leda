@@ -160,7 +160,7 @@ public class StudentTestRBTree {
 	public void velho_do_saco() {
 		Integer[] preOrder = { 19, 7, 3, 2, 12, 28, 24, 65, 41, 85 };
 		Colour[] preOrderColour = { Colour.BLACK, Colour.RED, Colour.BLACK,
-				Colour.RED, Colour.BLACK, Colour.RED, Colour.BLACK, Colour.RED, Colour.BLACK, Colour.RED };
+				Colour.RED, Colour.BLACK, Colour.RED, Colour.BLACK, Colour.BLACK, Colour.RED, Colour.RED };
 
 		myRB.insert(28);
 		myRB.insert(12);
