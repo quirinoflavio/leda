@@ -62,7 +62,7 @@ public class StudentTestRBTree {
 
 		int len = myRB.size();
 		RBNode<Integer>[] result = myRB.rbPreOrder();
-		//System.out.println(Arrays.toString(result));
+		System.out.println(Arrays.toString(result));
 		for (int i = 0; i < len; i++) {
 			assertEquals(preOrder[i], result[i].getData());
 			assertEquals(preOrderColour[i], result[i].getColour());
@@ -154,46 +154,6 @@ public class StudentTestRBTree {
 			assertEquals(preOrderColour[i], result[i].getColour());
 		}
 		assertTrue(myRB.verifyProperties());
-	}
-	
-	@Test
-	public void velho_do_saco() {
-		Integer[] preOrder = { 19, 7, 3, 2, 12, 28, 24, 65, 41, 85 };
-		Colour[] preOrderColour = { Colour.BLACK, Colour.RED, Colour.BLACK,
-				Colour.RED, Colour.BLACK, Colour.RED, Colour.BLACK, Colour.RED, Colour.BLACK, Colour.RED };
-
-		myRB.insert(28);
-		myRB.insert(12);
-		myRB.insert(19);
-		
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		
-		myRB.insert(3);
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		myRB.insert(7);
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		
-		myRB.insert(85);
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		
-		myRB.insert(24);
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		
-		myRB.insert(41);
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		
-		myRB.insert(65);
-		myRB.insert(2);
-		System.out.println(Arrays.toString(myRB.rbPreOrder()));
-		
-		int len = myRB.size();
-		RBNode<Integer>[] result = myRB.rbPreOrder();
-		for (int i = 0; i < len; i++) {
-			assertEquals(preOrder[i], result[i].getData());
-			assertEquals(preOrderColour[i], result[i].getColour());
-		}
-		assertTrue(myRB.verifyProperties());
-
 	}
 
 }

@@ -19,20 +19,17 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 
 	private int blackHeight(RBNode<T> node) {
 		int blackHeight = 0;
-		
 		if (!node.isEmpty()) {
 			if (node.getColour() == Colour.BLACK) {
 				int left = 1 + blackHeight(castNode(node.getLeft()));
 				int right = 1 + blackHeight(castNode(node.getRight()));
 				blackHeight = Math.max(left, right);
-			} 
-			else {
+			} else {
 				int left = blackHeight(castNode(node.getLeft()));
 				int right = blackHeight(castNode(node.getRight()));
 				blackHeight = Math.max(left, right);
 			}
 		}
-		
 		return blackHeight;
 	}
 
@@ -76,28 +73,22 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 	}
 	
 	private boolean verifyChildrenOfRedNodes(RBNode<T> node) {
-		boolean verifyLeft = true;
-		boolean verifyRight = true;
-		
+		boolean valid = true;
 		if (!node.isEmpty()) {
 			if (node.getColour() == Colour.RED) {
 				if (castNode(node.getLeft()).getColour() == Colour.RED
 						|| castNode(node.getRight()).getColour() == Colour.RED) {
-					verifyLeft = false;
-					verifyRight = false;
-				} 
-				else {
-					verifyLeft = verifyChildrenOfRedNodes(castNode(node.getLeft()));
-					verifyRight = verifyChildrenOfRedNodes(castNode(node.getRight()));
+					valid = false;
+				} else {
+					valid = verifyChildrenOfRedNodes(castNode(node.getLeft()));
+					valid = verifyChildrenOfRedNodes(castNode(node.getRight()));
 				}
-			} 
-			else {
-				verifyRight = verifyChildrenOfRedNodes(castNode(node.getLeft()));
-				verifyLeft = verifyChildrenOfRedNodes(castNode(node.getRight()));
+			} else {
+				valid = verifyChildrenOfRedNodes(castNode(node.getLeft()));
+				valid = verifyChildrenOfRedNodes(castNode(node.getRight()));
 			}
 		}
-		
-		return verifyLeft && verifyRight;
+		return valid;
 	}
 
 	/**
@@ -105,7 +96,7 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 	 * returns an exception if the black heights are different.
 	 */
 	private boolean verifyBlackHeight() {
-		return verifyBlackHeight(castNode(root));
+		return verifyBlackHeight((RBNode<T>) root);
 	}
 	
 	private boolean verifyBlackHeight(RBNode<T> node) {
@@ -113,16 +104,13 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 		int right = 0;
 		boolean validLeft = true;
 		boolean validRight = true;
-		
 		if (!node.isEmpty()) {
-			validLeft = verifyBlackHeight(castNode(node.getLeft()));
-			left = blackHeight(castNode(node.getLeft()));	
-			
-			validRight = verifyBlackHeight(castNode(node.getRight()));
-			right = blackHeight(castNode(node.getRight()));
+			validLeft = verifyBlackHeight((RBNode<T>) node.getLeft());
+			left = blackHeight((RBNode<T>) node.getLeft());	
+			validRight = verifyBlackHeight((RBNode<T>) node.getRight());
+			right = blackHeight((RBNode<T>) node.getRight());
 		}
-		
-		return left == right && validLeft && validRight;
+		return left == right  && validLeft && validRight;
 	}
 
 	@Override
@@ -214,20 +202,19 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 
 	protected void fixUpCase4(RBNode<T> node) {
 		RBNode<T> next = node;
-		if(isRightChild(castNode(node), castNode(node.getParent())) && isLeftChild(castNode(node.getParent()), castNode(node.getParent().getParent()))) {
+		if(isRightChild(castNode(node), castNode(node.getParent())) 
+				&& isLeftChild(castNode(node.getParent()), castNode(node.getParent().getParent()))) {
 			Util.leftRotation((BSTNode<T>) node.getParent());
-			//next = castNode(node.getLeft());
+			next = (RBNode<T>) node.getLeft();
 		}
-		else if(isLeftChild(castNode(node), castNode(node.getParent())) && isRightChild(castNode(node.getParent()), castNode(node.getParent().getParent()))) {
+		else if(isLeftChild(castNode(node), castNode(node.getParent())) 
+				&& isRightChild(castNode(node.getParent()), castNode(node.getParent().getParent()))) {
 			Util.rightRotation((BSTNode<T>) node.getParent());
-			//next = castNode(node.getRight());
+			next = (RBNode<T>) node.getRight();
 		}
-		
-		fixUpCase5(node);
 	}
 
 	protected void fixUpCase5(RBNode<T> node) {
-		//System.out.println("Case 5 " + node.getData());
 		castNode(node.getParent()).setColour(Colour.BLACK);
 		castNode(node.getParent().getParent()).setColour(Colour.RED);
 		if(isLeftChild(castNode(node), castNode(node.getParent()))) {
@@ -240,13 +227,13 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 	}
 	
 	private RBNode<T> getUncle(RBNode<T> node) {
-		RBNode<T> parent = castNode(node.getParent());
+		RBNode<T> parent = (RBNode<T>) node.getParent();
 		RBNode<T> uncle;
 		if(isLeftChild(castNode(node.getParent()), castNode(node.getParent().getParent()))) {
-			uncle = castNode(parent.getParent().getRight());
+			uncle = (RBNode<T>) parent.getParent().getRight();
 		}
 		else {
-			uncle = castNode(parent.getParent().getLeft());
+			uncle = (RBNode<T>) parent.getParent().getLeft();
 		}
 		
 		return uncle;
